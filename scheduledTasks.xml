@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE scheduled_tasks SYSTEM "../../../lib/pkp/dtd/scheduledTasks.dtd">
+
+<!--
+  * plugins/generic/scheduledPublish/scheduledTasks.xml
+  * Copyright (c) 2026 OJS Services. Distributed under the GNU GPL v3; see LICENSE.
+  *
+  * Used by OJS 3.4 (acron task runner). OJS 3.5 registers the same tasks through its own
+  * scheduler (HasTaskScheduler). Both tasks run at most once a minute; the frequency is
+  * written as minute="1-59,0" because acron reads an attribute equal to 0 as "no frequency".
+  -->
+<scheduled_tasks>
+	<task class="APP\plugins\generic\scheduledPublish\classes\ScheduledPublishIssueTask">
+		<descr>Publish issues whose scheduled date and time have arrived.</descr>
+		<frequency minute="1-59,0"/>
+	</task>
+	<task class="APP\plugins\generic\scheduledPublish\classes\ScheduledPublishSubmissionsTask">
+		<descr>Publish articles whose scheduled publication date has arrived, in published issues only.</descr>
+		<frequency minute="1-59,0"/>
+	</task>
+</scheduled_tasks>

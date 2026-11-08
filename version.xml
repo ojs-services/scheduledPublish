@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE version SYSTEM "../../../lib/pkp/dtd/pluginVersion.dtd">
+
+<!--
+  * plugins/generic/scheduledPublish/version.xml
+  * Copyright (c) 2026 OJS Services. Distributed under the GNU GPL v3; see LICENSE.
+  * Requires OJS 3.4.0.x or 3.5.0.x. Site-wide plugin: enabled once by the site administrator.
+  -->
+<version>
+	<application>scheduledPublish</application>
+	<type>plugins.generic</type>
+	<release>2.0.0.0</release>
+	<date>2026-11-08</date>
+	<lazy-load>1</lazy-load>
+	<sitewide>1</sitewide>
+	<class>ScheduledPublishPlugin</class>
+</version>

@@ -1,0 +1,100 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: scheduledPublish 2.0.0.0\n"
+"Report-Msgid-Bugs-To: info@ojs-services.com\n"
+"Last-Translator: OJS Services <info@ojs-services.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en\n"
+
+msgid "plugins.generic.scheduledPublish.displayName"
+msgstr "Scheduled Publish"
+
+msgid "plugins.generic.scheduledPublish.description"
+msgstr "Publishes issues and articles automatically when their scheduled date and time arrive. An unpublished issue gets a publication date and time in its form; when the time comes the issue is published with its articles, exactly as with \"Publish Issue\", and becomes the current issue. An article with a future date is published on that date, once its issue is published. Site-wide; managed by the site administrator."
+
+msgid "plugins.generic.scheduledPublish.settings.intro"
+msgstr "Scheduling is done in the issue form (Issues → Future Issues → Edit). The only site-wide setting is the tolerance window."
+
+msgid "plugins.generic.scheduledPublish.settings.toleranceHours"
+msgstr "Tolerance window (hours)"
+
+msgid "plugins.generic.scheduledPublish.settings.toleranceHours.description"
+msgstr "If the task runs late (the site had no visitors, the server was down, the plugin was disabled), the issue is still published within this many hours after its scheduled time. Later than that it is not published; the issue form shows a warning and the issue can be rescheduled or published by hand."
+
+msgid "plugins.generic.scheduledPublish.settings.toleranceHours.invalid"
+msgstr "Enter a whole number of hours between 1 and 168."
+
+msgid "plugins.generic.scheduledPublish.settings.timeZone"
+msgstr "Times are entered and stored in the time zone of this OJS installation: {$timezone}."
+
+msgid "plugins.generic.scheduledPublish.settings.runner"
+msgstr "The tasks run through OJS's own task runner, which runs at the end of page requests: a scheduled issue is published on the first visit after its time, usually within a minute. No server cron job is needed."
+
+msgid "plugins.generic.scheduledPublish.form.title"
+msgstr "Scheduled publication"
+
+msgid "plugins.generic.scheduledPublish.form.scheduledFor"
+msgstr "This issue is scheduled to be published on {$at} (scheduled by {$by})."
+
+msgid "plugins.generic.scheduledPublish.form.processing"
+msgstr "This issue is being published right now (scheduled for {$at})."
+
+msgid "plugins.generic.scheduledPublish.form.expired"
+msgstr "This issue was scheduled for {$at} but was NOT published: the task could not run within the tolerance window (no visitors, server down or plugin disabled). Enter a new date and time, or publish the issue by hand."
+
+msgid "plugins.generic.scheduledPublish.form.date"
+msgstr "Publication date"
+
+msgid "plugins.generic.scheduledPublish.form.time"
+msgstr "Time"
+
+msgid "plugins.generic.scheduledPublish.form.description"
+msgstr "Time zone: {$timezone} (the installation's OJS setting). When the time comes the issue is published with its articles, exactly as with \"Publish Issue\", and becomes the current issue; its publication date will be the scheduled time."
+
+msgid "plugins.generic.scheduledPublish.form.emptyToCancel"
+msgstr "Leave the date empty and save to cancel the schedule. Publishing the issue by hand also cancels it."
+
+msgid "plugins.generic.scheduledPublish.form.delayNote"
+msgstr "The issue is published on the first visit to the site after the scheduled time, usually within a minute. If no visit comes within {$hours} hours, the issue is not published and a warning is shown here."
+
+msgid "plugins.generic.scheduledPublish.form.futureArticles"
+msgstr "{$count} article(s) in this issue have a publication date later than the scheduled time. They will not appear with the issue; each is published on its own date."
+
+msgid "plugins.generic.scheduledPublish.form.currentIssue"
+msgstr "The current issue is now {$issue}. When this issue is published it becomes the current issue, as with \"Publish Issue\"."
+
+msgid "plugins.generic.scheduledPublish.form.icnAuto"
+msgstr "Issue Contributor Notify is enabled in this journal: the announcement to contributors follows that plugin's journal settings."
+
+msgid "plugins.generic.scheduledPublish.form.icnManual"
+msgstr "Issue Contributor Notify is enabled in this journal, in a version that sends only from its own dialog: after a scheduled publication, send the announcement to contributors from that plugin by hand."
+
+msgid "plugins.generic.scheduledPublish.form.notificationNote"
+msgstr "Reader notification: OJS's own rule applies, as when \"Publish Issue\" is confirmed with its default settings."
+
+msgid "plugins.generic.scheduledPublish.form.invalid"
+msgstr "Scheduled publication: enter a valid date (YYYY-MM-DD) and time (HH:MM)."
+
+msgid "plugins.generic.scheduledPublish.form.past"
+msgstr "Scheduled publication: the date and time must be in the future."
+
+msgid "plugins.generic.scheduledPublish.grid.column"
+msgstr "Scheduled"
+
+msgid "plugins.generic.scheduledPublish.grid.scheduled"
+msgstr "{$at}"
+
+msgid "plugins.generic.scheduledPublish.grid.processing"
+msgstr "Publishing… ({$at})"
+
+msgid "plugins.generic.scheduledPublish.grid.expired"
+msgstr "Not published! ({$at})"
+
+msgid "plugins.generic.scheduledPublish.task.issues"
+msgstr "Scheduled Publish: publish due issues"
+
+msgid "plugins.generic.scheduledPublish.task.submissions"
+msgstr "Scheduled Publish: publish due articles"

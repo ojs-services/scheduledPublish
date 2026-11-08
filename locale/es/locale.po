@@ -1,0 +1,100 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: scheduledPublish 2.0.0.0\n"
+"Report-Msgid-Bugs-To: info@ojs-services.com\n"
+"Last-Translator: OJS Services <info@ojs-services.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: es\n"
+
+msgid "plugins.generic.scheduledPublish.displayName"
+msgstr "Publicación programada (Scheduled Publish)"
+
+msgid "plugins.generic.scheduledPublish.description"
+msgstr "Publica números y artículos automáticamente cuando llega la fecha y hora programadas. El formulario de un número no publicado recibe una fecha y hora de publicación; cuando llega el momento, el número se publica con sus artículos, exactamente como con \"Publicar número\", y pasa a ser el número actual. Un artículo con fecha futura se publica en esa fecha, una vez publicado su número. Para todo el sitio; lo administra el administrador del sitio."
+
+msgid "plugins.generic.scheduledPublish.settings.intro"
+msgstr "La programación se hace en el formulario del número (Números → Números futuros → Editar). El único ajuste para todo el sitio es la ventana de tolerancia."
+
+msgid "plugins.generic.scheduledPublish.settings.toleranceHours"
+msgstr "Ventana de tolerancia (horas)"
+
+msgid "plugins.generic.scheduledPublish.settings.toleranceHours.description"
+msgstr "Si la tarea se ejecuta tarde (el sitio no recibió visitas, el servidor estaba apagado, el módulo estaba desactivado), el número se publica igualmente dentro de este número de horas tras la hora programada. Más tarde ya no se publica; el formulario del número muestra un aviso y el número puede reprogramarse o publicarse a mano."
+
+msgid "plugins.generic.scheduledPublish.settings.toleranceHours.invalid"
+msgstr "Introduzca un número entero de horas entre 1 y 168."
+
+msgid "plugins.generic.scheduledPublish.settings.timeZone"
+msgstr "Las horas se introducen y guardan en la zona horaria de esta instalación de OJS: {$timezone}."
+
+msgid "plugins.generic.scheduledPublish.settings.runner"
+msgstr "Las tareas se ejecutan con el propio ejecutor de tareas de OJS, al final de las peticiones de página: un número programado se publica en la primera visita posterior a su hora, normalmente en menos de un minuto. No hace falta cron en el servidor."
+
+msgid "plugins.generic.scheduledPublish.form.title"
+msgstr "Publicación programada"
+
+msgid "plugins.generic.scheduledPublish.form.scheduledFor"
+msgstr "Este número está programado para publicarse el {$at} (programado por {$by})."
+
+msgid "plugins.generic.scheduledPublish.form.processing"
+msgstr "Este número se está publicando ahora mismo (programado para {$at})."
+
+msgid "plugins.generic.scheduledPublish.form.expired"
+msgstr "Este número estaba programado para {$at} pero NO se publicó: la tarea no pudo ejecutarse dentro de la ventana de tolerancia (sin visitas, servidor apagado o módulo desactivado). Introduzca una nueva fecha y hora, o publique el número a mano."
+
+msgid "plugins.generic.scheduledPublish.form.date"
+msgstr "Fecha de publicación"
+
+msgid "plugins.generic.scheduledPublish.form.time"
+msgstr "Hora"
+
+msgid "plugins.generic.scheduledPublish.form.description"
+msgstr "Zona horaria: {$timezone} (ajuste de OJS de la instalación). Cuando llegue el momento, el número se publicará con sus artículos, exactamente como con \"Publicar número\", y pasará a ser el número actual; su fecha de publicación será la hora programada."
+
+msgid "plugins.generic.scheduledPublish.form.emptyToCancel"
+msgstr "Deje la fecha vacía y guarde para cancelar la programación. Publicar el número a mano también la cancela."
+
+msgid "plugins.generic.scheduledPublish.form.delayNote"
+msgstr "El número se publica en la primera visita al sitio posterior a la hora programada, normalmente en menos de un minuto. Si no hay ninguna visita en {$hours} horas, el número no se publica y aquí aparece un aviso."
+
+msgid "plugins.generic.scheduledPublish.form.futureArticles"
+msgstr "{$count} artículo(s) de este número tienen una fecha de publicación posterior a la hora programada. No aparecerán con el número; cada uno se publica en su propia fecha."
+
+msgid "plugins.generic.scheduledPublish.form.currentIssue"
+msgstr "El número actual es ahora {$issue}. Al publicarse este número pasará a ser el actual, como con \"Publicar número\"."
+
+msgid "plugins.generic.scheduledPublish.form.icnAuto"
+msgstr "Issue Contributor Notify está activado en esta revista: el aviso a los colaboradores sigue la configuración de revista de ese módulo."
+
+msgid "plugins.generic.scheduledPublish.form.icnManual"
+msgstr "Issue Contributor Notify está activado en esta revista, en una versión que solo envía desde su propio diálogo: tras una publicación programada, envíe el aviso a los colaboradores a mano desde ese módulo."
+
+msgid "plugins.generic.scheduledPublish.form.notificationNote"
+msgstr "Aviso a los lectores: se aplica la propia regla de OJS, como si \"Publicar número\" se confirmara con sus ajustes predeterminados."
+
+msgid "plugins.generic.scheduledPublish.form.invalid"
+msgstr "Publicación programada: introduzca una fecha (AAAA-MM-DD) y una hora (HH:MM) válidas."
+
+msgid "plugins.generic.scheduledPublish.form.past"
+msgstr "Publicación programada: la fecha y la hora deben estar en el futuro."
+
+msgid "plugins.generic.scheduledPublish.grid.column"
+msgstr "Programado"
+
+msgid "plugins.generic.scheduledPublish.grid.scheduled"
+msgstr "{$at}"
+
+msgid "plugins.generic.scheduledPublish.grid.processing"
+msgstr "Publicando… ({$at})"
+
+msgid "plugins.generic.scheduledPublish.grid.expired"
+msgstr "¡No publicado! ({$at})"
+
+msgid "plugins.generic.scheduledPublish.task.issues"
+msgstr "Publicación programada: publicar los números pendientes"
+
+msgid "plugins.generic.scheduledPublish.task.submissions"
+msgstr "Publicación programada: publicar los artículos pendientes"
