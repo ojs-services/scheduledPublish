@@ -27,6 +27,7 @@ use APP\plugins\generic\scheduledPublish\ScheduledPublishPlugin;
 use APP\submission\Submission;
 use Exception;
 use Illuminate\Support\Facades\Bus;
+use Illuminate\Support\Facades\DB;
 use PKP\core\Core;
 use PKP\db\DAORegistry;
 use PKP\facades\Locale;
@@ -113,8 +114,11 @@ class ScheduledPublishIssuePublisher
             Hook::call('IssueGridHandler::publishIssue', [&$issue]);
             $sendNotification = !empty($vars['sendIssueNotification']);
 
-            // 5. Current issue and save.
+            // 5. Current issue and save. On a site upgraded from OJS 3.3 a stale
+            //    journal_settings row "currentIssueId" can survive and override the column
+            //    when the journal is loaded; keep it in step so the new issue really shows.
             Repo::issue()->updateCurrent($contextId, $issue);
+            DB::table('journal_settings')->where('journal_id', $contextId)->where('setting_name', 'currentIssueId')->update(['setting_value' => (string) $issue->getId()]);
 
             // 6. DOI update, as in the core.
             Repo::doi()->issueUpdated($issue);

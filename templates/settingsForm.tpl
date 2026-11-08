@@ -10,7 +10,7 @@
 	{rdelim});
 </script>
 
-<form class="pkp_form" id="scheduledPublishSettingsForm" method="post" action="{url router=\PKP\core\PKPApplication::ROUTE_COMPONENT op="manage" category="generic" plugin=$pluginName verb="settings" save=true}">
+<form class="pkp_form" id="scheduledPublishSettingsForm" method="post" action="{url router="component" op="manage" category="generic" plugin=$pluginName verb="settings" save=true}">
 	{csrf}
 	{include file="controllers/notification/inPlaceNotification.tpl" notificationId="scheduledPublishSettingsFormNotification"}
 
