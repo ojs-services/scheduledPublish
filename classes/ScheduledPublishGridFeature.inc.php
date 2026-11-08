@@ -28,6 +28,18 @@ class ScheduledPublishGridFeature extends GridFeature
         $this->_plugin = $plugin;
     }
 
+    /**
+     * The grid assigns its columns to the template before the fetchGrid hook, but it builds
+     * its URLs (getRequestArgs) first; by then the core columns exist, so the column is added
+     * here and comes last.
+     * @copydoc GridFeature::getRequestArgs()
+     */
+    public function getRequestArgs($args)
+    {
+        $this->_ensureColumn($args['grid']);
+        return null;
+    }
+
     /** @copydoc GridFeature::fetchGrid() */
     public function fetchGrid($args)
     {

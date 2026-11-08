@@ -28,7 +28,7 @@ class ScheduledPublishPlugin extends GenericPlugin
     /** Issue Contributor Notify: first version that applies its journal defaults without its dialog. */
     const ICN_PRODUCT = 'issueContributorNotify';
     const ICN_PLUGIN_NAME = 'issuecontributornotifyplugin';
-    const ICN_MIN_VERSION = '1.6.0.0';
+    const ICN_MIN_VERSION = '1.5.4.0';
 
     /** @var ScheduledPublishPlugin|null */
     private static $_instance = null;
@@ -341,7 +341,15 @@ class ScheduledPublishPlugin extends GenericPlugin
             return false;
         }
 
-        $smarty->assign($this->getIssueFormVars($issue, $context));
+        $vars = $this->getIssueFormVars($issue, $context);
+        // After a failed validation the form is redrawn with what the user typed.
+        foreach (['scheduledPublishDate', 'scheduledPublishTime'] as $field) {
+            $typed = $smarty->getTemplateVars($field);
+            if (is_string($typed) && $typed !== '') {
+                $vars[$field] = $typed;
+            }
+        }
+        $smarty->assign($vars);
         $output .= $smarty->fetch($this->getTemplateResource('issueFormFields.tpl'));
         return false;
     }

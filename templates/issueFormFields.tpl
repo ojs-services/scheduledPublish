@@ -22,7 +22,7 @@
 			</div>
 			<div>
 				<label for="scheduledPublishTime" class="label">{translate key="plugins.generic.scheduledPublish.form.time"}</label><br/>
-				<input type="time" name="scheduledPublishTime" id="scheduledPublishTime" value="{$scheduledPublishTime|escape}" step="60" autocomplete="off" />
+				<input type="time" name="scheduledPublishTime" id="scheduledPublishTime" value="{$scheduledPublishTime|escape}" autocomplete="off" />
 			</div>
 		</div>
 		<p class="description">{translate key="plugins.generic.scheduledPublish.form.description" timezone=$scheduledPublishTimeZone}</p>
