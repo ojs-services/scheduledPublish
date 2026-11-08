@@ -18,7 +18,7 @@ import('lib.pkp.classes.plugins.GenericPlugin');
 class ScheduledPublishPlugin extends GenericPlugin
 {
     /** Must match version.xml; used to refresh the task runner's cached task list once per version. */
-    const VERSION = '1.2.0.0';
+    const VERSION = '1.2.0.1';
 
     /** Tolerance window: hours after the scheduled time within which a late run still publishes. */
     const TOLERANCE_DEFAULT = 24;
@@ -36,8 +36,11 @@ class ScheduledPublishPlugin extends GenericPlugin
     /** @var bool Hooks are registered once per request, however often OJS instantiates the plugin. */
     private static $_hooksRegistered = false;
 
-    /** @var bool True while the publisher runs, so the publishIssue hook leaves the schedule to it. */
-    private $_publishing = false;
+    /** @var bool True while the publisher runs, so the publishIssue hook leaves the schedule to it (shared by all instances). */
+    private static $_publishing = false;
+
+    /** The task runner is considered stalled when no task ran for this long. */
+    const RUNNER_STALE_SECONDS = 3600;
 
     /** @var ScheduledPublishSchedule|null */
     private $_schedule = null;
@@ -196,7 +199,28 @@ class ScheduledPublishPlugin extends GenericPlugin
     /** @param $publishing bool */
     public function setPublishing($publishing)
     {
-        $this->_publishing = (bool) $publishing;
+        self::$_publishing = (bool) $publishing;
+    }
+
+    /** Called by the tasks on every run, so the forms can tell whether the runner is alive. */
+    public function markTaskRun()
+    {
+        $this->updateSetting(CONTEXT_ID_NONE, 'lastRunAt', Core::getCurrentDate(), 'string');
+    }
+
+    /**
+     * Whether the task runner looks stalled: the tasks never ran, ran more than an hour ago,
+     * or the acron plugin (OJS's task runner) is disabled.
+     * @return bool
+     */
+    public function isTaskRunnerStale()
+    {
+        $lastRun = (string) $this->getSetting(CONTEXT_ID_NONE, 'lastRunAt');
+        if (!$lastRun || strtotime($lastRun) < time() - self::RUNNER_STALE_SECONDS) {
+            return true;
+        }
+        $pluginSettingsDao = DAORegistry::getDAO('PluginSettingsDAO'); /* @var $pluginSettingsDao PluginSettingsDAO */
+        return !$pluginSettingsDao->getSetting(CONTEXT_ID_NONE, 'acronplugin', 'enabled');
     }
 
     /** @return string The time zone OJS uses for dates (config.inc.php time_zone, else PHP's). */
@@ -390,6 +414,7 @@ class ScheduledPublishPlugin extends GenericPlugin
             'scheduledPublishFutureArticles' => $this->countFutureDatedArticles($issue),
             'scheduledPublishCurrentIssue' => $currentIssueLabel,
             'scheduledPublishIcn' => $this->getIcnStatus($context->getId()),
+            'scheduledPublishRunnerWarning' => $this->isTaskRunnerStale(),
         ];
     }
 
@@ -470,7 +495,7 @@ class ScheduledPublishPlugin extends GenericPlugin
     /** A manual publish (or the publisher itself) ends the schedule. */
     public function callbackIssuePublished($hookName, $args)
     {
-        if ($this->_publishing) {
+        if (self::$_publishing) {
             return false; // the publisher clears the schedule itself, after the issue is saved
         }
         $issue = $args[0];

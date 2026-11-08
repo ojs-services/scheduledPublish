@@ -140,10 +140,8 @@ class ScheduledPublishIssuePublisher
      */
     private function _assignPubIds($issue, $contextId)
     {
-        $pubIdPlugins = PluginRegistry::getPlugins('pubIds');
-        if (empty($pubIdPlugins)) {
-            $pubIdPlugins = PluginRegistry::loadCategory('pubIds', true, $contextId);
-        }
+        // Always the issue's own journal: the request may belong to another journal.
+        $pubIdPlugins = PluginRegistry::loadCategory('pubIds', true, $contextId);
         if (empty($pubIdPlugins)) {
             return;
         }

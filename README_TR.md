@@ -30,6 +30,7 @@ Sayının yayın tarihi, görevin çalıştığı an değil, **planlanan an** ol
 - **Tolerans penceresi** (site ayarı, varsayılan 24 saat): görev geç çalışırsa (ziyaret yok, sunucu kapalı, eklenti kapalı) sayı pencere içinde yine yayınlanır; yayın tarihi planlanan an olur. Daha geç kalınırsa sayı **yayınlanmaz**; form ve liste uyarı gösterir, sayı yeniden planlanabilir ya da elle yayınlanabilir.
 - **İptal:** sayı formunda tarihi boşaltıp kaydedin. Sayıyı elle yayınlamak da planı iptal eder.
 - **Tek yayın:** sayı üzerindeki kilit, çakışan iki koşunun sayıyı iki kez yayınlamasını engeller. Yarıda kalan koşu 30 dakika sonra yeniden denenir.
+- **Çalıştırıcı denetimi:** eklentinin görevleri bir saattir çalışmamışsa ya da acron eklentisi kapalıysa sayı formu ve ayar sayfası uyarır. Kurulumdan hemen sonra, ilk koşuya kadar uyarı görünebilir.
 
 ## Gereksinimler
 
@@ -41,7 +42,9 @@ Sayının yayın tarihi, görevin çalıştığı an değil, **planlanan an** ol
 
 Site yöneticisi olarak girin, *Web Sitesi → Eklentiler → Yeni eklenti yükle* ile `.tar.gz` paketini yükleyin ve genel eklentiler listesinde **Planlı Yayın**'ı etkinleştirin. Eklenti site genelindedir: bir kez açılır, bütün dergilerde geçerlidir. Tek ayarı (tolerans penceresi) eklentinin *Ayarlar* bağlantısındadır.
 
-1.1.0.0'dan yükseltme: yeni paketi eskisinin üzerine yükleyin. Var olan davranış (tarihi gelen makalelerin yayınlanması) sürer; yeni görevler yükseltmeden sonraki ilk sayfa isteğinde görev listesine girer.
+1.1.0.0'dan yükseltme: genel eklentiler listesinde eklentinin *Yükselt* eylemini açıp yeni paketi yükleyin (*Yeni eklenti yükle* var olan eklentiyi geri çevirir). Var olan davranış (tarihi gelen makalelerin yayınlanması) sürer; yeni görevler yükseltmeden sonraki ilk sayfa isteğinde görev listesine girer.
+
+**Eklentiyi kapatmadan ya da kaldırmadan önce,** ileri tarihle *Planlandı* durumunda kalan makaleleri ve planı olan sayıları gözden geçirin: eklenti yokken OJS 3.3 ikisini de yayınlamaz (böyle bir görevi yoktur). Elle yayınlayın ya da tarihleri geçene kadar eklentiyi açık bırakın. Plan, eklenti kapalıyken korunur; eklenti yeniden açılınca tolerans penceresi içindeyse çalışır.
 
 ## Kim planlar
 

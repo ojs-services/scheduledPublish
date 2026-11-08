@@ -30,6 +30,7 @@ The issue's publication date is the **scheduled time**, not the moment the task 
 - **Tolerance window** (site setting, default 24 hours): if the task runs late (no visitors, server down, plugin disabled), the issue is still published within the window, with the scheduled time as its publication date. Later than that it is **not** published; the issue form and the grid show a warning, and the issue can be rescheduled or published by hand.
 - **Cancel:** empty the date in the issue form and save. Publishing the issue by hand also cancels the schedule.
 - **One publish:** a claim on the issue prevents two overlapping runs from publishing it twice. An interrupted run is retried after 30 minutes.
+- **Runner check:** the issue form and the settings page warn when the plugin's tasks have not run for an hour or the acron plugin is disabled. Right after installation the warning may show until the first run.
 
 ## Requirements
 
@@ -41,7 +42,9 @@ The issue's publication date is the **scheduled time**, not the moment the task 
 
 Sign in as site administrator, open *Website → Plugins → Upload a new plugin*, upload the `.tar.gz` package and enable **Scheduled Publish** in the generic plugins list. The plugin is site-wide: enabled once, it applies to every journal. Its only setting (the tolerance window) is in the plugin's *Settings* link.
 
-Upgrading from 1.1.0.0: upload the new package over the old one. Existing behaviour (publishing articles whose date has arrived) continues; the new tasks join the task runner's list on the first page request after the upgrade.
+Upgrading from 1.1.0.0: in the generic plugins list open the plugin's *Upgrade* action and upload the new package (not *Upload a new plugin*, which refuses an existing plugin). Existing behaviour (publishing articles whose date has arrived) continues; the new tasks join the task runner's list on the first page request after the upgrade.
+
+**Before disabling or removing the plugin,** check the articles left in the *Scheduled* state with a future date and the issues with a schedule: without the plugin OJS 3.3 publishes neither (it runs no such task). Publish them by hand, or leave the plugin enabled until their dates have passed. A schedule is kept while the plugin is disabled and, within the tolerance window, runs when the plugin is enabled again.
 
 ## Who schedules
 

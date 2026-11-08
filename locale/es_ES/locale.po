@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: scheduledPublish 1.2.0.0\n"
+"Project-Id-Version: scheduledPublish 1.2.0.1\n"
 "Report-Msgid-Bugs-To: info@ojs-services.com\n"
 "Last-Translator: OJS Services <info@ojs-services.com>\n"
 "Language-Team: \n"
@@ -32,6 +32,9 @@ msgstr "Las horas se introducen y guardan en la zona horaria de esta instalació
 
 msgid "plugins.generic.scheduledPublish.settings.runner"
 msgstr "Las tareas se ejecutan con el propio ejecutor de tareas de OJS, al final de las peticiones de página: un número programado se publica en la primera visita posterior a su hora, normalmente en menos de un minuto. No hace falta cron en el servidor."
+
+msgid "plugins.generic.scheduledPublish.settings.runnerWarning"
+msgstr "Las tareas de este módulo no se han ejecutado en la última hora, o el módulo acron está desactivado. Los números y artículos programados solo se publican cuando el ejecutor de tareas de OJS las ejecuta."
 
 msgid "plugins.generic.scheduledPublish.form.title"
 msgstr "Publicación programada"
@@ -71,6 +74,9 @@ msgstr "Issue Contributor Notify está activado en esta revista: el aviso a los 
 
 msgid "plugins.generic.scheduledPublish.form.icnManual"
 msgstr "Issue Contributor Notify está activado en esta revista, en una versión que solo envía desde su propio diálogo: tras una publicación programada, envíe el aviso a los colaboradores a mano desde ese módulo."
+
+msgid "plugins.generic.scheduledPublish.form.runnerWarning"
+msgstr "El ejecutor de tareas de OJS no ha ejecutado las tareas de este módulo en la última hora, o el módulo acron está desactivado. Un número programado solo se publica cuando las tareas se ejecutan: compruebe que el módulo acron esté activado y que el sitio reciba visitas."
 
 msgid "plugins.generic.scheduledPublish.form.notificationNote"
 msgstr "Aviso a los lectores: se aplica la propia regla de OJS, como si \"Publicar número\" se confirmara con sus ajustes predeterminados."

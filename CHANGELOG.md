@@ -2,6 +2,18 @@
 
 Requires OJS 3.3.0.x; PHP 7.4–8.2. OJS 3.4 and 3.5 have their own package; a package does not work on the other line.
 
+## 1.2.0.1 — 2026-11-08
+
+Fixes from the first-release review; no new features.
+
+- **Escaping.** Every value the plugin prints in the issue form and the settings page (scheduled time, note, time-zone label) is HTML-escaped.
+- **Runner warning.** The issue form and the settings page warn when the plugin's tasks have not run for an hour or the acron plugin is disabled, so a schedule is not made on a site where nothing would publish it. The warning may show briefly after installation, until the first run.
+- **Interrupted issue publication.** An article left in the Scheduled state without a date (the issue was published, the article step failed) now takes the issue's date in the article task instead of waiting forever.
+- **Multi-journal sites.** Public identifier plugins are always loaded for the issue's own journal, also when the task runs during a request of another journal.
+- **Wrong line.** The package no longer fails on OJS 3.4 or 3.5: `index.php` returns nothing there, and OJS reports the plugin as not loadable.
+- The "publishing" flag is shared by all plugin instances, so the manual-publish hook cannot clear a schedule during a run.
+- Documentation: upgrade through the plugin's *Upgrade* action; check scheduled articles before disabling the plugin.
+
 ## 1.2.0.0 — 2026-11-08
 
 Issue scheduling, and a safer article task.
