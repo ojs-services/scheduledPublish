@@ -1,0 +1,100 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: scheduledPublish 1.2.0.0\n"
+"Report-Msgid-Bugs-To: info@ojs-services.com\n"
+"Last-Translator: OJS Services <info@ojs-services.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: tr_TR\n"
+
+msgid "plugins.generic.scheduledPublish.displayName"
+msgstr "Planlı Yayın (Scheduled Publish)"
+
+msgid "plugins.generic.scheduledPublish.description"
+msgstr "Sayıları ve makaleleri planlanan tarih ve saat gelince kendiliğinden yayınlar. Yayınlanmamış sayının formuna yayın tarihi ve saati eklenir; zamanı gelince sayı, \"Sayıyı Yayınla\" ile aynı biçimde makaleleriyle birlikte yayınlanır ve güncel sayı olur. İleri tarihli makale, sayısı yayınlandıktan sonra kendi tarihinde yayınlanır. Site genelinde çalışır; site yöneticisi yönetir."
+
+msgid "plugins.generic.scheduledPublish.settings.intro"
+msgstr "Planlama sayı formunda yapılır (Sayılar → Gelecek Sayılar → Düzenle). Site genelindeki tek ayar tolerans penceresidir."
+
+msgid "plugins.generic.scheduledPublish.settings.toleranceHours"
+msgstr "Tolerans penceresi (saat)"
+
+msgid "plugins.generic.scheduledPublish.settings.toleranceHours.description"
+msgstr "Görev geç çalışırsa (siteye ziyaret gelmedi, sunucu kapalıydı, eklenti kapalıydı) sayı, planlanan saatten sonraki bu kadar saat içinde yine yayınlanır. Daha geç kalınırsa yayınlanmaz; sayı formunda uyarı görünür, sayı yeniden planlanabilir ya da elle yayınlanabilir."
+
+msgid "plugins.generic.scheduledPublish.settings.toleranceHours.invalid"
+msgstr "1 ile 168 arasında tam sayı bir saat değeri girin."
+
+msgid "plugins.generic.scheduledPublish.settings.timeZone"
+msgstr "Saatler bu OJS kurulumunun saat dilimine göre girilir ve saklanır: {$timezone}."
+
+msgid "plugins.generic.scheduledPublish.settings.runner"
+msgstr "Görevler OJS'in kendi görev çalıştırıcısıyla, sayfa isteklerinin sonunda koşar: planlanan sayı, saatinden sonraki ilk ziyarette, genellikle bir dakika içinde yayınlanır. Sunucuda cron kurulumu gerekmez."
+
+msgid "plugins.generic.scheduledPublish.form.title"
+msgstr "Planlı yayın"
+
+msgid "plugins.generic.scheduledPublish.form.scheduledFor"
+msgstr "Bu sayı {$at} tarihinde yayınlanmak üzere planlandı (planlayan: {$by})."
+
+msgid "plugins.generic.scheduledPublish.form.processing"
+msgstr "Bu sayı şu anda yayınlanıyor (planlanan: {$at})."
+
+msgid "plugins.generic.scheduledPublish.form.expired"
+msgstr "Bu sayı {$at} için planlanmıştı ama YAYINLANMADI: görev tolerans penceresi içinde çalışamadı (ziyaret gelmedi, sunucu kapalıydı ya da eklenti kapalıydı). Yeni bir tarih ve saat girin ya da sayıyı elle yayınlayın."
+
+msgid "plugins.generic.scheduledPublish.form.date"
+msgstr "Yayın tarihi"
+
+msgid "plugins.generic.scheduledPublish.form.time"
+msgstr "Saat"
+
+msgid "plugins.generic.scheduledPublish.form.description"
+msgstr "Saat dilimi: {$timezone} (kurulumun OJS ayarı). Zamanı gelince sayı, \"Sayıyı Yayınla\" ile aynı biçimde makaleleriyle birlikte yayınlanır ve güncel sayı olur; yayın tarihi olarak planlanan an yazılır."
+
+msgid "plugins.generic.scheduledPublish.form.emptyToCancel"
+msgstr "Planı iptal etmek için tarihi boş bırakıp kaydedin. Sayıyı elle yayınlamak da planı iptal eder."
+
+msgid "plugins.generic.scheduledPublish.form.delayNote"
+msgstr "Sayı, planlanan saatten sonra siteye gelen ilk ziyarette, genellikle bir dakika içinde yayınlanır. {$hours} saat içinde ziyaret gelmezse sayı yayınlanmaz ve burada uyarı görürsünüz."
+
+msgid "plugins.generic.scheduledPublish.form.futureArticles"
+msgstr "Bu sayıdaki {$count} makalenin yayın tarihi planlanan saatten sonra. Bunlar sayıyla birlikte görünmez; her biri kendi tarihinde yayınlanır."
+
+msgid "plugins.generic.scheduledPublish.form.currentIssue"
+msgstr "Şu anda güncel sayı: {$issue}. Bu sayı yayınlanınca, \"Sayıyı Yayınla\" ile olduğu gibi, güncel sayı bu olur."
+
+msgid "plugins.generic.scheduledPublish.form.icnAuto"
+msgstr "Bu dergide Issue Contributor Notify etkin: katkı sahiplerine duyuru o eklentinin dergi ayarına göre gider."
+
+msgid "plugins.generic.scheduledPublish.form.icnManual"
+msgstr "Bu dergide Issue Contributor Notify etkin, ancak kurulu sürüm yalnız kendi penceresinden gönderiyor: planlı yayından sonra katkı sahiplerine duyuruyu o eklentiden elle gönderin."
+
+msgid "plugins.generic.scheduledPublish.form.notificationNote"
+msgstr "Okur bildirimi: OJS'in kendi kuralı geçerlidir; \"Sayıyı Yayınla\" penceresi varsayılan ayarlarıyla onaylanmış gibi işler."
+
+msgid "plugins.generic.scheduledPublish.form.invalid"
+msgstr "Planlı yayın: geçerli bir tarih (YYYY-AA-GG) ve saat (SS:DD) girin."
+
+msgid "plugins.generic.scheduledPublish.form.past"
+msgstr "Planlı yayın: tarih ve saat gelecekte olmalı."
+
+msgid "plugins.generic.scheduledPublish.grid.column"
+msgstr "Planlandı"
+
+msgid "plugins.generic.scheduledPublish.grid.scheduled"
+msgstr "{$at}"
+
+msgid "plugins.generic.scheduledPublish.grid.processing"
+msgstr "Yayınlanıyor… ({$at})"
+
+msgid "plugins.generic.scheduledPublish.grid.expired"
+msgstr "Yayınlanmadı! ({$at})"
+
+msgid "plugins.generic.scheduledPublish.task.issues"
+msgstr "Planlı Yayın: zamanı gelen sayıları yayınla"
+
+msgid "plugins.generic.scheduledPublish.task.submissions"
+msgstr "Planlı Yayın: zamanı gelen makaleleri yayınla"
