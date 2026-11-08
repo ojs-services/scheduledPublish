@@ -13,6 +13,8 @@ Fixes from the first-release review; no new features.
 - **Multi-journal sites.** Public identifier plugins are always loaded for the issue's own journal, also when the task runs during a request of another journal.
 - **Scheduler lock (OJS 3.5).** The lock that keeps two runs of a task apart expires after 10 minutes, so a crashed run does not block the next ones.
 - The "publishing" flag is shared by all plugin instances; the `HasTaskScheduler` shim checks the core interface through the autoloader.
+- **Sites upgraded from OJS 3.3.** A stale `journal_settings` row `currentIssueId` left by the upgrade overrides the journal's real current issue when the journal is loaded, so the new issue would not show as current (the core's own Publish Issue has the same gap). The plugin now keeps that row in step with the issue it makes current.
+- The settings template names the component router by its string, which avoids a Smarty deprecation notice in the OJS 3.5 log.
 - Documentation: check scheduled articles before disabling the plugin.
 
 ## 2.0.0.0 — 2026-11-08
