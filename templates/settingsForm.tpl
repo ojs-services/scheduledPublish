@@ -14,6 +14,10 @@
 	{csrf}
 	{include file="controllers/notification/inPlaceNotification.tpl" notificationId="scheduledPublishSettingsFormNotification"}
 
+	{if $scheduledPublishRunnerWarning}
+		<p class="scheduledPublishWarning" style="color:#d00000;font-weight:bold;">{translate key="plugins.generic.scheduledPublish.settings.runnerWarning"}</p>
+	{/if}
+
 	<p>{translate key="plugins.generic.scheduledPublish.settings.intro"}</p>
 
 	{fbvFormArea id="scheduledPublishSettingsArea"}
@@ -22,7 +26,7 @@
 		{/fbvFormSection}
 	{/fbvFormArea}
 
-	<p class="description">{translate key="plugins.generic.scheduledPublish.settings.timeZone" timezone=$scheduledPublishTimeZone}</p>
+	<p class="description">{translate key="plugins.generic.scheduledPublish.settings.timeZone" timezone=$scheduledPublishTimeZone|escape}</p>
 	<p class="description">{translate key="plugins.generic.scheduledPublish.settings.runner"}</p>
 
 	{fbvFormButtons submitText="common.save"}

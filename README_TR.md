@@ -15,7 +15,7 @@ Planlı Yayın, sayıları ve makaleleri planlanan tarih ve saat gelince kendili
 - `IssueGridHandler::publishIssue` kancası çalışır; öteki eklentiler elle yayındaki gibi tepki verir;
 - sayı **güncel sayı** olur;
 - sayının **Planlandı durumundaki makaleleri yayınlanır**; tarihi boş makale sayının tarihini alır;
-- okur bildirimi **OJS'in kendi kuralına** göre gider (pencerenin varsayılanı: açık): abone kullanıcılara kuyruk işleriyle bildirim ve e-posta; e-postanın göndereni sayıyı planlayan kullanıcıdır.
+- okur bildirimi **OJS'in kendi kuralına** göre gider (pencerenin varsayılanı: açık): abone kullanıcılara kuyruk işleriyle bildirim ve e-posta; e-postanın göndereni sayıyı planlayan kullanıcıdır. Dergide Issue Contributor Notify kurulu ve etkinse, elle yayındaki gibi onun kuralı geçerlidir.
 
 Sayının yayın tarihi, görevin çalıştığı an değil, **planlanan an** olur.
 
@@ -30,6 +30,7 @@ Sayının yayın tarihi, görevin çalıştığı an değil, **planlanan an** ol
 - **Tolerans penceresi** (site ayarı, varsayılan 24 saat): görev geç çalışırsa (ziyaret yok, sunucu kapalı, eklenti kapalı) sayı pencere içinde yine yayınlanır; yayın tarihi planlanan an olur. Daha geç kalınırsa sayı **yayınlanmaz**; form ve liste uyarı gösterir, sayı yeniden planlanabilir ya da elle yayınlanabilir.
 - **İptal:** sayı formunda tarihi boşaltıp kaydedin. Sayıyı elle yayınlamak da planı iptal eder.
 - **Tek yayın:** sayı üzerindeki kilit, çakışan iki koşunun sayıyı iki kez yayınlamasını engeller. Yarıda kalan koşu 30 dakika sonra yeniden denenir.
+- **Çalıştırıcı denetimi:** eklentinin görevleri bir saattir çalışmamışsa (OJS 3.4'te: ya da acron eklentisi kapalıysa) sayı formu ve ayar sayfası uyarır. Kurulumdan hemen sonra, ilk koşuya kadar uyarı görünebilir.
 
 ## Gereksinimler
 
@@ -40,6 +41,8 @@ Sayının yayın tarihi, görevin çalıştığı an değil, **planlanan an** ol
 ## Kurulum
 
 Site yöneticisi olarak girin, *Web Sitesi → Eklentiler → Yeni eklenti yükle* ile `.tar.gz` paketini yükleyin ve genel eklentiler listesinde **Planlı Yayın**'ı etkinleştirin. Eklenti site genelindedir: bir kez açılır, bütün dergilerde geçerlidir. Tek ayarı (tolerans penceresi) eklentinin *Ayarlar* bağlantısındadır.
+
+**Eklentiyi kapatmadan ya da kaldırmadan önce,** ileri tarihle *Planlandı* durumunda kalan makaleleri ve planı olan sayıları gözden geçirin: eklenti yokken OJS ikisini de yayınlamaz (böyle bir görevi yoktur). Elle yayınlayın ya da tarihleri geçene kadar eklentiyi açık bırakın. Plan, eklenti kapalıyken korunur; eklenti yeniden açılınca tolerans penceresi içindeyse çalışır.
 
 ## Kim planlar
 

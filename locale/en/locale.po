@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: scheduledPublish 2.0.0.0\n"
+"Project-Id-Version: scheduledPublish 2.0.0.1\n"
 "Report-Msgid-Bugs-To: info@ojs-services.com\n"
 "Last-Translator: OJS Services <info@ojs-services.com>\n"
 "Language-Team: \n"
@@ -32,6 +32,9 @@ msgstr "Times are entered and stored in the time zone of this OJS installation: 
 
 msgid "plugins.generic.scheduledPublish.settings.runner"
 msgstr "The tasks run through OJS's own task runner, which runs at the end of page requests: a scheduled issue is published on the first visit after its time, usually within a minute. No server cron job is needed."
+
+msgid "plugins.generic.scheduledPublish.settings.runnerWarning"
+msgstr "The tasks of this plugin have not run in the last hour (on OJS 3.4: or the acron plugin is disabled). Scheduled issues and articles are published only when OJS's task runner runs them."
 
 msgid "plugins.generic.scheduledPublish.form.title"
 msgstr "Scheduled publication"
@@ -71,6 +74,9 @@ msgstr "Issue Contributor Notify is enabled in this journal: the announcement to
 
 msgid "plugins.generic.scheduledPublish.form.icnManual"
 msgstr "Issue Contributor Notify is enabled in this journal, in a version that sends only from its own dialog: after a scheduled publication, send the announcement to contributors from that plugin by hand."
+
+msgid "plugins.generic.scheduledPublish.form.runnerWarning"
+msgstr "OJS's task runner has not run this plugin's tasks in the last hour (on OJS 3.4: or the acron plugin is disabled). A scheduled issue is published only when the tasks run: make sure the task runner is active (OJS 3.4: the acron plugin; OJS 3.5: the built-in scheduler) and the site is visited."
 
 msgid "plugins.generic.scheduledPublish.form.notificationNote"
 msgstr "Reader notification: OJS's own rule applies, as when \"Publish Issue\" is confirmed with its default settings."

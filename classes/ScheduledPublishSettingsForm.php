@@ -64,6 +64,7 @@ class ScheduledPublishSettingsForm extends Form
             'toleranceMin' => ScheduledPublishPlugin::TOLERANCE_MIN,
             'toleranceMax' => ScheduledPublishPlugin::TOLERANCE_MAX,
             'scheduledPublishTimeZone' => $this->plugin->getTimeZoneLabel(),
+            'scheduledPublishRunnerWarning' => $this->plugin->isTaskRunnerStale(),
         ]);
         return parent::fetch($request, $template, $display);
     }

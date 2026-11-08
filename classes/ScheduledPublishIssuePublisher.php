@@ -77,6 +77,10 @@ class ScheduledPublishIssuePublisher
 
         $saved = ScheduledPublishContext::enter($journal);
         $this->plugin->setPublishing(true);
+        $request = Application::get()->getRequest();
+        $vars = & $request->getUserVars();
+        $hadVar = array_key_exists('sendIssueNotification', $vars);
+        $oldVar = $hadVar ? $vars['sendIssueNotification'] : null;
         try {
             // 1. Public identifiers, as the publish dialog assigns them with its default ticks,
             //    and the issue DOI as the core creates it on publish.
@@ -100,10 +104,14 @@ class ScheduledPublishIssuePublisher
                 $issue->setOpenAccessDate(date('Y-m-d H:i:s', mktime(0, 0, 0, $delayOpenAccessMonth, $curDay, $delayOpenAccessYear)));
             }
 
-            // 4. The same hook the grid handler calls. Our scheduling data must not be
-            //    written back by the core's save below.
+            // 4. The dialog's notification tick in its default state, so plugins that read or
+            //    remove it (Issue Contributor Notify) see what they see on a manual publish; then
+            //    the same hook the grid handler calls. Our scheduling data must not be written
+            //    back by the core's save below.
+            $vars['sendIssueNotification'] = 1;
             $this->schedule->detach($issue);
             Hook::call('IssueGridHandler::publishIssue', [&$issue]);
+            $sendNotification = !empty($vars['sendIssueNotification']);
 
             // 5. Current issue and save.
             Repo::issue()->updateCurrent($contextId, $issue);
@@ -122,9 +130,10 @@ class ScheduledPublishIssuePublisher
             ), ScheduledTaskHelper::SCHEDULED_TASK_MESSAGE_TYPE_NOTICE);
 
             // 9. Reader notification under OJS's own rule (decision 4): the dialog's default
-            //    is on. Queued jobs, as in the core; the sender is the user who scheduled.
+            //    is on unless a plugin removed it in the hook. Queued jobs, as in the core; the
+            //    sender is the user who scheduled.
             $notified = 0;
-            if ($journal->getData('publishingMode') != Journal::PUBLISHING_MODE_NONE) {
+            if ($sendNotification && $journal->getData('publishingMode') != Journal::PUBLISHING_MODE_NONE) {
                 try {
                     $notified = $this->notifyUsers($contextId, $issue, $scheduledBy);
                     $this->logLine(sprintf('Issue %d: notification jobs queued for %d users.', $issue->getId(), $notified), ScheduledTaskHelper::SCHEDULED_TASK_MESSAGE_TYPE_NOTICE);
@@ -132,11 +141,16 @@ class ScheduledPublishIssuePublisher
                     $this->logLine(sprintf('Issue %d: notification failed: %s', $issue->getId(), $e->getMessage()), ScheduledTaskHelper::SCHEDULED_TASK_MESSAGE_TYPE_WARNING);
                 }
             } else {
-                $this->logLine(sprintf('Issue %d: reader notification not sent (publishing mode off).', $issue->getId()), ScheduledTaskHelper::SCHEDULED_TASK_MESSAGE_TYPE_NOTICE);
+                $this->logLine(sprintf('Issue %d: reader notification not sent (removed by a plugin or publishing mode off).', $issue->getId()), ScheduledTaskHelper::SCHEDULED_TASK_MESSAGE_TYPE_NOTICE);
             }
 
             return ['published' => true, 'articles' => $articles, 'notified' => $notified];
         } finally {
+            if ($hadVar) {
+                $vars['sendIssueNotification'] = $oldVar;
+            } else {
+                unset($vars['sendIssueNotification']);
+            }
             $this->plugin->setPublishing(false);
             ScheduledPublishContext::leave($saved);
         }
@@ -148,10 +162,8 @@ class ScheduledPublishIssuePublisher
      */
     private function assignPubIds(Issue $issue, int $contextId): void
     {
-        $pubIdPlugins = PluginRegistry::getPlugins('pubIds');
-        if (empty($pubIdPlugins)) {
-            $pubIdPlugins = PluginRegistry::loadCategory('pubIds', true, $contextId);
-        }
+        // Always the issue's own journal: the request may belong to another journal.
+        $pubIdPlugins = PluginRegistry::loadCategory('pubIds', true, $contextId);
         if (empty($pubIdPlugins)) {
             return;
         }

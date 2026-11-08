@@ -6,12 +6,15 @@
  * (hook Templates::Editor::Issues::IssueData::AdditionalMetadata).
  *}
 {fbvFormArea id="scheduledPublishArea" title="plugins.generic.scheduledPublish.form.title" class="border"}
+	{if $scheduledPublishRunnerWarning}
+		<p class="scheduledPublishWarning" style="color:#d00000;font-weight:bold;">{translate key="plugins.generic.scheduledPublish.form.runnerWarning"}</p>
+	{/if}
 	{if $scheduledPublishState == 'expired'}
-		<p class="pkp_form_error" style="color:#d00000;font-weight:bold;">{translate key="plugins.generic.scheduledPublish.form.expired" at=$scheduledPublishAtFormatted}</p>
+		<p class="scheduledPublishWarning" style="color:#d00000;font-weight:bold;">{translate key="plugins.generic.scheduledPublish.form.expired" at=$scheduledPublishAtFormatted|escape}</p>
 	{elseif $scheduledPublishState == 'processing'}
-		<p>{translate key="plugins.generic.scheduledPublish.form.processing" at=$scheduledPublishAtFormatted}</p>
+		<p>{translate key="plugins.generic.scheduledPublish.form.processing" at=$scheduledPublishAtFormatted|escape}</p>
 	{elseif $scheduledPublishState == 'scheduled'}
-		<p><strong>{translate key="plugins.generic.scheduledPublish.form.scheduledFor" at=$scheduledPublishAtFormatted by=$scheduledPublishByName}</strong></p>
+		<p><strong>{translate key="plugins.generic.scheduledPublish.form.scheduledFor" at=$scheduledPublishAtFormatted|escape by=$scheduledPublishByName|escape}</strong></p>
 	{/if}
 
 	{fbvFormSection}
@@ -25,16 +28,16 @@
 				<input type="time" name="scheduledPublishTime" id="scheduledPublishTime" value="{$scheduledPublishTime|escape}" autocomplete="off" />
 			</div>
 		</div>
-		<p class="description">{translate key="plugins.generic.scheduledPublish.form.description" timezone=$scheduledPublishTimeZone}</p>
+		<p class="description">{translate key="plugins.generic.scheduledPublish.form.description" timezone=$scheduledPublishTimeZone|escape}</p>
 		<p class="description">{translate key="plugins.generic.scheduledPublish.form.emptyToCancel"}</p>
-		<p class="description">{translate key="plugins.generic.scheduledPublish.form.delayNote" hours=$scheduledPublishToleranceHours}</p>
+		<p class="description">{translate key="plugins.generic.scheduledPublish.form.delayNote" hours=$scheduledPublishToleranceHours|escape}</p>
 	{/fbvFormSection}
 
 	{if $scheduledPublishFutureArticles > 0}
-		<p class="description">{translate key="plugins.generic.scheduledPublish.form.futureArticles" count=$scheduledPublishFutureArticles}</p>
+		<p class="description">{translate key="plugins.generic.scheduledPublish.form.futureArticles" count=$scheduledPublishFutureArticles|escape}</p>
 	{/if}
 	{if $scheduledPublishCurrentIssue}
-		<p class="description">{translate key="plugins.generic.scheduledPublish.form.currentIssue" issue=$scheduledPublishCurrentIssue}</p>
+		<p class="description">{translate key="plugins.generic.scheduledPublish.form.currentIssue" issue=$scheduledPublishCurrentIssue|escape}</p>
 	{/if}
 	{if $scheduledPublishIcn == 'auto'}
 		<p class="description">{translate key="plugins.generic.scheduledPublish.form.icnAuto"}</p>

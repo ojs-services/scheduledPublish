@@ -2,6 +2,19 @@
 
 Requires OJS 3.4.0.x or 3.5.0.x; PHP 8.1–8.2. OJS 3.3 has its own package (1.x); a package does not work on the other line.
 
+## 2.0.0.1 — 2026-11-08
+
+Fixes from the first-release review; no new features.
+
+- **Reader notification follows the publish hook.** The dialog's notification tick is set before the `IssueGridHandler::publishIssue` hook and read after it: a plugin that removes it there (Issue Contributor Notify) suppresses OJS's reader notification, as on a manual publish. Before, the notification was always queued.
+- **Escaping.** Every value the plugin prints in the issue form and the settings page (scheduled time, note, time-zone label) is HTML-escaped.
+- **Runner warning.** The issue form and the settings page warn when the plugin's tasks have not run for an hour (OJS 3.4: or the acron plugin is disabled). The warning may show briefly after installation, until the first run.
+- **Interrupted issue publication.** An article left in the Scheduled state without a date now takes the issue's date in the article task instead of waiting forever.
+- **Multi-journal sites.** Public identifier plugins are always loaded for the issue's own journal, also when the task runs during a request of another journal.
+- **Scheduler lock (OJS 3.5).** The lock that keeps two runs of a task apart expires after 10 minutes, so a crashed run does not block the next ones.
+- The "publishing" flag is shared by all plugin instances; the `HasTaskScheduler` shim checks the core interface through the autoloader.
+- Documentation: check scheduled articles before disabling the plugin.
+
 ## 2.0.0.0 — 2026-11-08
 
 First release for OJS 3.4 and 3.5. Same features as 1.2.0.0 on OJS 3.3.

@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: scheduledPublish 2.0.0.0\n"
+"Project-Id-Version: scheduledPublish 2.0.0.1\n"
 "Report-Msgid-Bugs-To: info@ojs-services.com\n"
 "Last-Translator: OJS Services <info@ojs-services.com>\n"
 "Language-Team: \n"
@@ -32,6 +32,9 @@ msgstr "Saatler bu OJS kurulumunun saat dilimine göre girilir ve saklanır: {$t
 
 msgid "plugins.generic.scheduledPublish.settings.runner"
 msgstr "Görevler OJS'in kendi görev çalıştırıcısıyla, sayfa isteklerinin sonunda koşar: planlanan sayı, saatinden sonraki ilk ziyarette, genellikle bir dakika içinde yayınlanır. Sunucuda cron kurulumu gerekmez."
+
+msgid "plugins.generic.scheduledPublish.settings.runnerWarning"
+msgstr "Bu eklentinin görevleri son bir saatte çalışmadı (OJS 3.4'te: ya da acron eklentisi kapalı). Planlanan sayılar ve makaleler yalnız OJS'in görev çalıştırıcısı görevleri çalıştırınca yayınlanır."
 
 msgid "plugins.generic.scheduledPublish.form.title"
 msgstr "Planlı yayın"
@@ -71,6 +74,9 @@ msgstr "Bu dergide Issue Contributor Notify etkin: katkı sahiplerine duyuru o e
 
 msgid "plugins.generic.scheduledPublish.form.icnManual"
 msgstr "Bu dergide Issue Contributor Notify etkin, ancak kurulu sürüm yalnız kendi penceresinden gönderiyor: planlı yayından sonra katkı sahiplerine duyuruyu o eklentiden elle gönderin."
+
+msgid "plugins.generic.scheduledPublish.form.runnerWarning"
+msgstr "OJS'in görev çalıştırıcısı bu eklentinin görevlerini son bir saatte çalıştırmadı (OJS 3.4'te: ya da acron eklentisi kapalı). Planlanan sayı yalnız görevler çalışınca yayınlanır: görev çalıştırıcısının etkin olduğundan (OJS 3.4: acron eklentisi; OJS 3.5: yerleşik zamanlayıcı) ve sitenin ziyaret aldığından emin olun."
 
 msgid "plugins.generic.scheduledPublish.form.notificationNote"
 msgstr "Okur bildirimi: OJS'in kendi kuralı geçerlidir; \"Sayıyı Yayınla\" penceresi varsayılan ayarlarıyla onaylanmış gibi işler."

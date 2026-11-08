@@ -11,7 +11,7 @@
  */
 
 namespace PKP\plugins\interfaces {
-    if (!interface_exists('PKP\plugins\interfaces\HasTaskScheduler', false)) {
+    if (!interface_exists('PKP\plugins\interfaces\HasTaskScheduler')) {
         interface HasTaskScheduler
         {
             public function registerSchedules(\PKP\scheduledTask\PKPScheduler $scheduler): void;

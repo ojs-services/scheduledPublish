@@ -34,6 +34,7 @@ class ScheduledPublishIssueTask extends ScheduledTask
             return true;
         }
 
+        $plugin->markTaskRun();
         $schedule = new ScheduledPublishSchedule();
         $publisher = new ScheduledPublishIssuePublisher($plugin, $schedule, function (string $message, string $type) {
             $this->addExecutionLogEntry($message, $type);

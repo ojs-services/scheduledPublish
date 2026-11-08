@@ -39,6 +39,7 @@ class ScheduledPublishSubmissionsTask extends ScheduledTask
             return true;
         }
 
+        $plugin->markTaskRun();
         $now = time();
         foreach (Application::getContextDAO()->getAll(true)->toArray() as $journal) {
             $contextId = (int) $journal->getId();
@@ -55,16 +56,22 @@ class ScheduledPublishSubmissionsTask extends ScheduledTask
                 if (!$publication || $publication->getData('status') !== Submission::STATUS_SCHEDULED) {
                     continue;
                 }
-                $datePublished = $publication->getData('datePublished');
-                if (!$datePublished || strtotime($datePublished) > $now) {
-                    continue;
-                }
                 $issueId = (int) $publication->getData('issueId');
+                $issue = null;
                 if ($issueId) {
                     $issue = Repo::issue()->get($issueId);
                     if (!$issue || !$issue->getPublished()) {
                         continue; // the issue is not out yet: the article waits for it
                     }
+                }
+                $datePublished = $publication->getData('datePublished');
+                if (!$datePublished && $issue) {
+                    // Left without a date by an interrupted issue publication: it takes the issue's date.
+                    $datePublished = $issue->getDatePublished();
+                    $publication->setData('datePublished', $datePublished);
+                }
+                if (!$datePublished || strtotime($datePublished) > $now) {
+                    continue;
                 }
                 $due[] = [$submission, $publication];
             }

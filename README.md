@@ -15,7 +15,7 @@ Scheduled Publish publishes issues and articles automatically when their schedul
 - the `IssueGridHandler::publishIssue` hook runs, so other plugins react as on a manual publish;
 - the issue becomes the **current issue**;
 - the issue's **scheduled articles are published**, and an article without a date gets the issue's date;
-- the reader notification follows **OJS's own rule** (the dialog's default: on): subscribed users are notified by queued jobs; the email sender is the user who scheduled the issue.
+- the reader notification follows **OJS's own rule** (the dialog's default: on): subscribed users are notified by queued jobs; the email sender is the user who scheduled the issue. If Issue Contributor Notify is installed and enabled in the journal, its rule applies instead, as on a manual publish.
 
 The issue's publication date is the **scheduled time**, not the moment the task happened to run.
 
@@ -30,6 +30,7 @@ The issue's publication date is the **scheduled time**, not the moment the task 
 - **Tolerance window** (site setting, default 24 hours): if the task runs late (no visitors, server down, plugin disabled), the issue is still published within the window, with the scheduled time as its publication date. Later than that it is **not** published; the issue form and the grid show a warning, and the issue can be rescheduled or published by hand.
 - **Cancel:** empty the date in the issue form and save. Publishing the issue by hand also cancels the schedule.
 - **One publish:** a claim on the issue prevents two overlapping runs from publishing it twice. An interrupted run is retried after 30 minutes.
+- **Runner check:** the issue form and the settings page warn when the plugin's tasks have not run for an hour (OJS 3.4: or the acron plugin is disabled). Right after installation the warning may show until the first run.
 
 ## Requirements
 
@@ -40,6 +41,8 @@ The issue's publication date is the **scheduled time**, not the moment the task 
 ## Installation
 
 Sign in as site administrator, open *Website → Plugins → Upload a new plugin*, upload the `.tar.gz` package and enable **Scheduled Publish** in the generic plugins list. The plugin is site-wide: enabled once, it applies to every journal. Its only setting (the tolerance window) is in the plugin's *Settings* link.
+
+**Before disabling or removing the plugin,** check the articles left in the *Scheduled* state with a future date and the issues with a schedule: without the plugin OJS publishes neither (it runs no such task). Publish them by hand, or leave the plugin enabled until their dates have passed. A schedule is kept while the plugin is disabled and, within the tolerance window, runs when the plugin is enabled again.
 
 ## Who schedules
 

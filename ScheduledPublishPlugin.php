@@ -32,6 +32,7 @@ use APP\plugins\generic\scheduledPublish\classes\ScheduledPublishSubmissionsTask
 use APP\submission\Submission;
 use Carbon\Carbon;
 use PKP\config\Config;
+use PKP\core\Core;
 use PKP\core\JSONMessage;
 use PKP\db\DAORegistry;
 use PKP\facades\Locale;
@@ -46,7 +47,7 @@ use PKP\scheduledTask\PKPScheduler;
 class ScheduledPublishPlugin extends GenericPlugin implements HasTaskScheduler
 {
     /** Must match version.xml; used to refresh the 3.4 task runner's cached task list once per version. */
-    public const VERSION = '2.0.0.0';
+    public const VERSION = '2.0.0.1';
 
     /** Tolerance window: hours after the scheduled time within which a late run still publishes. */
     public const TOLERANCE_DEFAULT = 24;
@@ -63,8 +64,11 @@ class ScheduledPublishPlugin extends GenericPlugin implements HasTaskScheduler
     /** Hooks are registered once per request, however often OJS instantiates the plugin. */
     private static bool $hooksRegistered = false;
 
-    /** True while the publisher runs, so the publishIssue hook leaves the schedule to it. */
-    private bool $publishing = false;
+    /** True while the publisher runs, so the publishIssue hook leaves the schedule to it (shared by all instances). */
+    private static bool $publishing = false;
+
+    /** The task runner is considered stalled when no task ran for this long. */
+    public const RUNNER_STALE_SECONDS = 3600;
 
     private ?ScheduledPublishSchedule $schedule = null;
 
@@ -211,12 +215,12 @@ class ScheduledPublishPlugin extends GenericPlugin implements HasTaskScheduler
             ->addSchedule(new ScheduledPublishIssueTask())
             ->everyMinute()
             ->name(ScheduledPublishIssueTask::class)
-            ->withoutOverlapping();
+            ->withoutOverlapping(10);
         $scheduler
             ->addSchedule(new ScheduledPublishSubmissionsTask())
             ->everyMinute()
             ->name(ScheduledPublishSubmissionsTask::class)
-            ->withoutOverlapping();
+            ->withoutOverlapping(10);
     }
 
     //
@@ -248,7 +252,31 @@ class ScheduledPublishPlugin extends GenericPlugin implements HasTaskScheduler
 
     public function setPublishing(bool $publishing): void
     {
-        $this->publishing = $publishing;
+        self::$publishing = $publishing;
+    }
+
+    /** Called by the tasks on every run, so the forms can tell whether the runner is alive. */
+    public function markTaskRun(): void
+    {
+        $this->updateSetting(Application::CONTEXT_ID_NONE, 'lastRunAt', Core::getCurrentDate(), 'string');
+    }
+
+    /**
+     * Whether the task runner looks stalled: the tasks never ran, ran more than an hour ago,
+     * or (OJS 3.4) the acron plugin is disabled.
+     */
+    public function isTaskRunnerStale(): bool
+    {
+        $lastRun = (string) $this->getSetting(Application::CONTEXT_ID_NONE, 'lastRunAt');
+        if (!$lastRun || strtotime($lastRun) < time() - self::RUNNER_STALE_SECONDS) {
+            return true;
+        }
+        if ($this->isOjs35()) {
+            return false;
+        }
+        /** @var \PKP\plugins\PluginSettingsDAO $pluginSettingsDao */
+        $pluginSettingsDao = DAORegistry::getDAO('PluginSettingsDAO');
+        return !$pluginSettingsDao->getSetting(Application::CONTEXT_ID_NONE, 'acronplugin', 'enabled');
     }
 
     /** @return string The time zone OJS uses for dates (config.inc.php time_zone, else PHP's). */
@@ -428,6 +456,7 @@ class ScheduledPublishPlugin extends GenericPlugin implements HasTaskScheduler
             'scheduledPublishFutureArticles' => $this->countFutureDatedArticles($issue),
             'scheduledPublishCurrentIssue' => $currentIssueLabel,
             'scheduledPublishIcn' => $this->getIcnStatus((int) $context->getId()),
+            'scheduledPublishRunnerWarning' => $this->isTaskRunnerStale(),
         ];
     }
 
@@ -505,7 +534,7 @@ class ScheduledPublishPlugin extends GenericPlugin implements HasTaskScheduler
     /** A manual publish (or the publisher itself) ends the schedule. */
     public function callbackIssuePublished($hookName, $args)
     {
-        if ($this->publishing) {
+        if (self::$publishing) {
             return Hook::CONTINUE; // the publisher clears the schedule itself, after the issue is saved
         }
         $issue = $args[0];
