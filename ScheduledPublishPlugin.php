@@ -56,7 +56,7 @@ class ScheduledPublishPlugin extends GenericPlugin implements HasTaskScheduler
     /** Issue Contributor Notify (OJS 3.3 plugin; kept for a future 3.4+ release). */
     public const ICN_PRODUCT = 'issueContributorNotify';
     public const ICN_PLUGIN_NAME = 'issuecontributornotifyplugin';
-    public const ICN_MIN_VERSION = '1.6.0.0';
+    public const ICN_MIN_VERSION = '1.5.3.0';
 
     private static ?ScheduledPublishPlugin $instance = null;
 
@@ -384,7 +384,15 @@ class ScheduledPublishPlugin extends GenericPlugin implements HasTaskScheduler
             return Hook::CONTINUE;
         }
 
-        $smarty->assign($this->getIssueFormVars($issue, $context));
+        $vars = $this->getIssueFormVars($issue, $context);
+        // After a failed validation the form is redrawn with what the user typed.
+        foreach (['scheduledPublishDate', 'scheduledPublishTime'] as $field) {
+            $typed = $smarty->getTemplateVars($field);
+            if (is_string($typed) && $typed !== '') {
+                $vars[$field] = $typed;
+            }
+        }
+        $smarty->assign($vars);
         $output .= $smarty->fetch($this->getTemplateResource('issueFormFields.tpl'));
         return Hook::CONTINUE;
     }
